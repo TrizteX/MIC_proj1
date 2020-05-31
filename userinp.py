@@ -1,6 +1,6 @@
 def get_path():
     #please provide the paths to the content and style images
-    cnt_img='images/content1.jpg'
+    cnt_img='images/content7.jpg'
     sty_img='images/style6.jpg'
     
     return cnt_img, sty_img
