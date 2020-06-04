@@ -11,16 +11,17 @@
 
 ## Dataset
 CelebA was used for the training of this model, [link to CelebA!](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). 
-If you wish to use your own dataset, the structure should be "datasets/sub_dir/img.png". The dataset will download as a file named img_align_celeba.zip. Once downloaded, create a directory named celeba and extract the zip file into that directory. Then, set the dataroot input for this notebook to the celeba directory you just created. The resulting directory structure should be: "/path/subdir/img.png"
+If you wish to use your own dataset, the structure should be "datasets/sub_dir/img.png". The dataset will download as a file named img_align_celeba.zip. Once downloaded, create a directory named celeba and extract the zip file into that directory. Then, set the dataroot input for this notebook to the celeba directory you just created. The resulting directory structure should be: "/path/subdir/img.png".
 
 This is an important step because we will be using the ImageFolder dataset class, which requires there to be subdirectories in the dataset’s root folder.
 
 ## Train
 To train on your own dataset:
-1. Specify dataset path in wgan.py " dataroot = 'path' " line 44
-2. You can change other parameters such as batch_size, etc but we suggest to use the ones already provided
+1. Specify dataset path in wgan.py " dataroot = 'path' " line 44.
+2. You can change other parameters such as batch_size, etc but we suggest to use the ones already provided.
 3. Please change the number of workers defined in wgan.py " workers = " line 49. 
-4. More parameters regarding training length, learning rate, etc can be changed in train.py, starting line 178
+4. More parameters regarding training length, learning rate, etc can be changed in train.py, starting line 178.
+5. Number of epochs can be changed by altering the n_epoch in train.py, line 204.
 
 ## Inference
 To run inference on the trained model:
