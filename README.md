@@ -3,7 +3,7 @@
 
 ## This is a PyTorch 1.5.0 implementation of WGAN 
 ## Requirements: 
-1. Python 3.5+ 
+1. Python 3.6+ 
 2. Numpy 1.18.5
 3. PyTorch 1.5+
 4. Gdown 3.11.0
