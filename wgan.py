@@ -36,32 +36,29 @@ import datetime
 
 """Transforms"""
 
+nc = 3 # Number of Channels 3 for RGB
+nz = 100 # Size of Latent vector i.e input to Generator
+ngf = 64 # Number of generator filters
+ndf = 64 # Number of generator filters
+batch_size = 64 #batch_size
+dataroot = 'datasets' # Dataset must contain a subdirectory which contains the images. "dir/subdir/img.png"
+
 def load_dataset():
-   dataroot = 'dataset'
 
-   workers = 4
 
-   batch_size = 128
-
-   nc = 3 # Number of Channels 3 for RGB
-
-   nz = 100 # Size of Latent vector i.e input to Generator 
-
-   ngf = 64 # Number of generator filters
-
-   ndf = 64 # Number of generator filters
+   workers = 6 #Number of workers, If you dont have a high end cpu it is best to be left at 2
 
    trans = transforms.Compose([transforms.Resize(64),
                             transforms.ToTensor(),
                             transforms.Normalize((0.5, 0.5, 0.5), (0.5,0.5,0.5))])
 
-   dataset = dset.CIFAR10(root = dataroot , download = True, transform = trans) #dataroot = path/to/save_data
+   dataset = dset.ImageFolder(root = dataroot , transform = trans) #dataroot = path/to/save_data
 
 
    assert dataset
 
-   dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
-                                         shuffle=True, num_workers=workers)
+   dataloader = torch.utils.data.DataLoader(dataset, batch_size= batch_size
+                                            , num_workers=workers)
    return dataloader
 
 def clear_line():
@@ -75,13 +72,13 @@ def format_hdr(gan, root_dir, training_len):
     num_params_D, num_params_G = gan.get_num_params()
     gan_type = 'Wasserstein GAN (WGAN)'
     gan_loss = 'min_G max_D  E_x[D(x)] - E_z[D(G(z))]'
-    title = 'Wassertian Generative Adversarial Network (GAN)'.center(80)
+    title = 'Wasserstein Generative Adversarial Network (GAN)'.center(80)
     sep, sep_ = 80 * '-', 80 * '='
     type_str = 'Type: {}'.format(gan_type)
     loss_str = 'Loss: {}'.format(gan_loss)
     param_D_str = 'Nb of generator params: {:,}'.format(num_params_D)
     param_G_str = 'Nb of discriminator params: {:,}'.format(num_params_G)
-    dataset = 'Training on CIFAR10 dataset ({}) with {:,} Images'.format(root_dir, training_len)
+    dataset = 'Training on  dataset ({}) with {:,} Images'.format(root_dir, training_len)
     hdr = '\n'.join([sep_, title, sep, dataset, type_str, loss_str, param_G_str, param_D_str, sep_])
     print(hdr)
 
@@ -164,25 +161,24 @@ class AvgMeter(object):
         self.avg = self.sum / self.count
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-print(device)
+
 
 """Init"""
 
 class WGAN(nn.Module):
-  def __init__(self, nz, batch_size):
+  def __init__(self, nz = nz, batch_size = batch_size):
     super().__init__()
     self.nz = nz
-    print(self.nz)
     self.batch_size = batch_size
-    self.G = Generator(100,64, 3)
-    self.D = Discriminator(3, 64)
+    self.G = Generator(nz,ngf, nc)
+    self.D = Discriminator(nc, ndf)
     self.init_weights(self.G)
     self.init_weights(self.D)
     self.y_real = torch.ones(batch_size)
     self.y_fake = torch.zeros(batch_size)
-    if torch.cuda.is_available():
-            self.y_real = self.y_real.cuda()
-            self.y_fake = self.y_fake.cuda()
+    #if torch.cuda.is_available():
+    self.y_real = self.y_real.to(device = device) #change
+    self.y_fake = self.y_fake.to(device = device) #change
 
   def load_model(self, filename):
       """Load PyTorch model"""
@@ -192,7 +188,7 @@ class WGAN(nn.Module):
 
   def save_model(self, ckpt_path, epoch, override=True):
       """Save model"""
-
+      self.gan_type = "WGAN"
       if override:
           fname_gen_pt = '{}/{}-gen.pt'.format(ckpt_path, self.gan_type)
           fname_disc_pt = '{}/{}-disc.pt'.format(ckpt_path, self.gan_type)
@@ -232,8 +228,8 @@ class WGAN(nn.Module):
         if seed:
             torch.manual_seed(seed)
         z = torch.randn(batch_size, self.nz)
-        if torch.cuda.is_available():
-            z = z.cuda()
+        #if torch.cuda.is_available():
+        z = z.to(device)
         return z
   def train_G(self, G_optimizer, batch_size):
     self.G.zero_grad()
@@ -247,7 +243,7 @@ class WGAN(nn.Module):
     G_optimizer.step()
     G_loss = G_train_loss.item()
     return G_loss
-  
+
   def train_D(self, x, D_optimizer, batch_size):
     """Update discriminator parameters"""
 
@@ -259,9 +255,6 @@ class WGAN(nn.Module):
     fake_imgs = self.G(z).detach()
     D_out_fake = self.D(fake_imgs)
     D_train_loss = -(D_out_real.mean() - D_out_fake.mean())
-    print("  D_out_real ", D_out_real.mean())
-    print("  D_out_fake ", D_out_fake.mean())
-    print("  D_train_loss ", D_train_loss.mean())
     D_train_loss.backward()
     D_optimizer.step()
     self.D.clip()
@@ -281,7 +274,7 @@ class WGAN(nn.Module):
 """Network Architecture"""
 
 class Generator(nn.Module):
-  def __init__(self, nz, ngf, nc):
+  def __init__(self, nz = nz, ngf = ngf, nc = nc):
     super().__init__()
     self.linear = nn.Sequential(
         nn.Linear(nz, ngf*8*4*4, bias = False),
@@ -305,7 +298,7 @@ class Generator(nn.Module):
     return self.features(x)
 
 class Discriminator(nn.Module):
-      def __init__(self, nc, ndf):
+      def __init__(self, nc = nc, ndf = ndf):
         super().__init__()
         self.features = nn.Sequential(
             nn.Conv2d(nc, ndf, 4, 2, 1),
@@ -325,9 +318,8 @@ class Discriminator(nn.Module):
       def forward(self, x):
            return self.features(x).view(-1)
 
-      def clip(self, c=0.01):
+      def clip(self, c=0.01):  # Weights clamping value
         """Weight clipping in (-c, c)"""
 
         for p in self.parameters():
             p.data.clamp_(-c, c)
-
