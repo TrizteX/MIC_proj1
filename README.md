@@ -17,7 +17,7 @@ If you wish to use your own dataset, the structure should be "datasets/sub_dir/i
 This is an important step because we will be using the ImageFolder dataset class, which requires there to be subdirectories in the dataset’s root folder.
 ## Usage
 
-``` from model.py import GAN ```
+``` from model import GAN ```
 
 To train use:
 
