@@ -20,13 +20,14 @@ CelebA was used for the training of this model, which can be downloaded at [this
 
 3. The resulting directory structure should be: "/path/subdir/img.png".
 
-4.  ```/path/to/celeba
+4.  ```
+       /path/to/celeba
          -> img_align_celeba
              -> 188242.jpg
              -> 173822.jpg
              -> 284702.jpg
              -> 537394.jpg
-           ```
+    ```
 
 This is an important step because we will be using the ImageFolder dataset class, which requires there to be subdirectories in the dataset’s root folder.
 #### Usage
