@@ -25,17 +25,14 @@ CelebA was used for the training of this model, which can be downloaded at [this
 This is an important step because we will be using the ImageFolder dataset class, which requires there to be subdirectories in the dataset’s root folder.
 #### Usage
 
-``` from model import GAN ```
-##### For training:
+```python 
+from model import GAN
 
-```bash 
-   GAN(run_type="train") 
-```
+# To train the GAN with default parameters
+GAN(run_type="train") 
 
-To run inference use:
-
-```bash 
-   GAN() 
+# To run inference using the GAN
+GAN() 
 ```
 
 #### Train
