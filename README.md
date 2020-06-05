@@ -17,7 +17,7 @@ If you wish to use your own dataset, the structure should be "datasets/sub_dir/i
 This is an important step because we will be using the ImageFolder dataset class, which requires there to be subdirectories in the dataset’s root folder.
 
 ## Train
-### python train.py
+''' $python train.py '''
 To train on your own dataset:
 1. Specify dataset path in wgan.py " dataroot = 'path' " line 44.
 2. You can change other parameters such as batch_size, etc but we suggest to use the ones already provided.
@@ -26,7 +26,7 @@ To train on your own dataset:
 5. Number of epochs can be changed by altering the n_epoch in train.py, line 204.
 
 ## Inference
-### python inference.py
+''' $python inference.py '''
 To run inference on the trained model:
 ### Weights from a pretrained model on CelebA will be downloaded automatically if not specified elsewise.
 In order to run inference on your own trained model:
