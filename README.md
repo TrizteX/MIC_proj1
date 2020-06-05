@@ -1,34 +1,43 @@
 # MIC Project 1: Contribution to PyVision
-# WGAN
+### WGAN
 
-## This is a PyTorch 1.5.0 implementation of WGAN 
-## Requirements: 
+This is a PyTorch 1.5.0 implementation of WGAN 
+
+#### Requirements: 
 1. Python 3.6+ 
 2. Numpy 1.18.5
 3. PyTorch 1.5+
 4. Gdown 3.11.0
 5. Matplotlib 3.2.1
-6. Cuda 10.1
+6. CUDA - 10.1
 
-## Dataset
-CelebA was used for the training of this model, [link to CelebA!](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). 
-If you wish to use your own dataset, the structure should be "datasets/sub_dir/img.png". The dataset will download as a file named img_align_celeba.zip. Once downloaded, create a directory named celeba and extract the zip file into that directory. Then, set the dataroot input for this notebook to the celeba directory you just created. The resulting directory structure should be: "/path/subdir/img.png".
+#### Dataset
+CelebA was used for the training of this model, which can be downloaded at [this httpURL](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). 
+
+1.If you wish to use your own dataset, the structure should be "datasets/sub_dir/img.png". The dataset will download as a file named img_align_celeba.zip. 
+2. Once downloaded, create a directory named **celeba/** and extract the zip file into that directory.
+3. Then, set the dataroot input for this notebook to the celeba directory you just created.
+4. The resulting directory structure should be: "/path/subdir/img.png".
 
 This is an important step because we will be using the ImageFolder dataset class, which requires there to be subdirectories in the dataset’s root folder.
-## Usage
+#### Usage
 
 ``` from model import GAN ```
+##### For training:
 
-To train use:
-
-``` GAN(run_type="train") ```
+```bash 
+   GAN(run_type="train") 
+```
 
 To run inference use:
 
-``` GAN() ```
+```bash 
+   GAN() 
+```
 
-## Train
+#### Train
 To train on your own dataset:
+
 1. Specify dataset path in wgan.py " dataroot = 'path' " line 44.
 2. You can change other parameters such as batch_size, etc but we suggest to use the ones already provided.
 3. Please change the number of workers defined in wgan.py " workers = " line 49. 
