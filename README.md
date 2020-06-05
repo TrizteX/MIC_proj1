@@ -18,9 +18,13 @@ This is an important step because we will be using the ImageFolder dataset class
 ## Usage
 
 ``` from model.py import GAN ```
+
 To train use:
+
 ``` GAN(run_type="train") ```
+
 To run inference use:
+
 ``` GAN() ```
 
 ## Train
