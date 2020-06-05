@@ -12,7 +12,7 @@ import json
 import gdown
 from train import *
 class GAN:
-    def __init__(self, run_type = "train"):
+    def __init__(self, run_type = "inference"):
         print("run_type = ",run_type)
         if run_type == "inference":
             set_ckpt_dir = "WGAN-gen.pt"  # path to ckpt
