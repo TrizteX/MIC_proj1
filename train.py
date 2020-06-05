@@ -197,12 +197,12 @@ ckpt_params = {
 # In[5]:
 
 
-model = CelebA(train_params, ckpt_params, gan_params)
-data_loader = wgan.load_dataset()
+#model = CelebA(train_params, ckpt_params, gan_params)
+#data_loader = wgan.load_dataset()
 
 torch.manual_seed(100)
-n_epoch = 135 #Number of epochs to train for
-model.train(n_epoch, data_loader)
+#n_epoch = 135 #Number of epochs to train for
+#model.train(n_epoch, data_loader)
 
 
 # In[ ]:
