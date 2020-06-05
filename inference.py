@@ -11,7 +11,7 @@ from wgan import *
 import json
 import gdown
 set_ckpt_dir = "WGAN-gen.pt" # path to ckpt
-
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def gen():
     set_gen_dir = "gen" # path to save img directory
@@ -41,15 +41,12 @@ def download_weights():
         print("Download finished")
 
 
-if torch.cuda.is_available():
-    device = 'cuda'
-else:
-    device = 'cpu'
+device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 check_weights()
 gen()
 gan = WGAN()
 gan.eval()
-gan = gan.to(device=device)
+gan = gan.to(device)
 gan.load_model(filename=set_ckpt_dir)
 
 def save_new_img():
