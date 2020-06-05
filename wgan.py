@@ -160,7 +160,7 @@ class AvgMeter(object):
         self.count += n
         self.avg = self.sum / self.count
 
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
+device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
 
 """Init"""
@@ -177,14 +177,14 @@ class WGAN(nn.Module):
     self.y_real = torch.ones(batch_size)
     self.y_fake = torch.zeros(batch_size)
     #if torch.cuda.is_available():
-    self.y_real = self.y_real.to(device = device) #change
-    self.y_fake = self.y_fake.to(device = device) #change
+    self.y_real = self.y_real.to(device) #change
+    self.y_fake = self.y_fake.to(device) #change
 
   def load_model(self, filename):
       """Load PyTorch model"""
 
       print('Loading generator checkpoint from: {}'.format(filename))
-      self.G.load_state_dict(torch.load(filename))
+      self.G.load_state_dict(torch.load(filename, map_location = device))
 
   def save_model(self, ckpt_path, epoch, override=True):
       """Save model"""
