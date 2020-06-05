@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 import subprocess as sp
 import argparse
 
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
+device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 # In[2]:
 
 
