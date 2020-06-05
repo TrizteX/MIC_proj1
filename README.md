@@ -14,7 +14,7 @@ This is a PyTorch 1.5.0 implementation of WGAN
 #### Dataset
 CelebA was used for the training of this model, which can be downloaded at [this httpURL](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). 
 
-1.If you wish to use your own dataset, the structure should be "datasets/sub_dir/img.png". The dataset will download as a file named img_align_celeba.zip. 
+1. If you wish to use your own dataset, the structure should be "datasets/sub_dir/img.png". The dataset will download as a file named img_align_celeba.zip. 
 
 2. Once downloaded, create a directory named **celeba/** and extract the zip file into that directory.
 
@@ -59,5 +59,5 @@ In order to run inference on your own trained model:
 * Training time: 9 Hrs
 
 
-## Current output
+### Current output
 ![Image](current_output_imgs/test36.png)
