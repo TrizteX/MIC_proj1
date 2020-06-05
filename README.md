@@ -18,9 +18,15 @@ CelebA was used for the training of this model, which can be downloaded at [this
 
 2. Once downloaded, create a directory named **celeba/** and extract the zip file into that directory.
 
-3. Then, set the dataroot input for this notebook to the celeba directory you just created.
+3. The resulting directory structure should be: "/path/subdir/img.png".
 
-4. The resulting directory structure should be: "/path/subdir/img.png".
+4. /path/to/celeba
+    -> img_align_celeba
+        -> 188242.jpg
+        -> 173822.jpg
+        -> 284702.jpg
+        -> 537394.jpg
+           ...
 
 This is an important step because we will be using the ImageFolder dataset class, which requires there to be subdirectories in the dataset’s root folder.
 #### Usage
