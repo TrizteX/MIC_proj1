@@ -181,7 +181,7 @@ class Neural_Style:
         style_weight = self.style_weight
         content_weight = self.content_weight
 
-        style_img, content_img, input_img = self.image_loader(style_img, content_img)
+        content_img, style_img, input_img = self.image_loader(content_img, style_img)
 
         """Run the style transfer."""
         print('Building the style transfer model..')
