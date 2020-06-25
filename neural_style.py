@@ -56,14 +56,14 @@ class Normalization(nn.Module):
 
 class Neural_Style:
     
-    def __init__(self, content_layers_default=['conv_4'], style_layers_default= ['conv_1', 'conv_2', 'conv_3', 'conv_4', 'conv_5'], num_steps= 300, style_weight= 1000000, content_weight=1):
+    def __init__(self, content_layers_default=['conv_4'], style_layers_default= ['conv_1', 'conv_2', 'conv_3', 'conv_4', 'conv_5'], num_steps= 300, style_weight= 1000000, content_weight=1, use_gpu=True):
     
         self.content_layers_default = content_layers_default
         self.style_layers_default = style_layers_default
         self.num_steps = num_steps
         self.style_weight = style_weight
         self.content_weight = content_weight
-        self.device = torch.device("cuda" if (torch.cuda.is_available()) else "cpu")
+        self.device = if torch.device("cuda" if (torch.cuda.is_available()) and use_gpu else "cpu")
         self.imsize = 512 if (torch.cuda.is_available()) else 128 
 
         self.cnn = models.vgg19(pretrained=True).features.to(self.device).eval()
@@ -97,7 +97,7 @@ class Neural_Style:
         
 
         w,h=cntimg.size
-        ratio=w/h
+        ratio=w//h
 
         l=max(w,h)
         s=min(w,h)
@@ -107,10 +107,10 @@ class Neural_Style:
             s=int(s/l*self.imsize)
             l=self.imsize
         
-        if ratio==(s/l):
+        if ratio==(s//l):
             styimg=styimg.resize((s,l))
             cntimg=cntimg.resize((s,l))
-        elif ratio==(l/s):
+        elif ratio==(l//s):
             styimg=styimg.resize((l,s))
             cntimg=cntimg.resize((l,s))
          
