@@ -11,3 +11,15 @@ Output Images:
 ![Output](/output/content1+style6.png)
 ![](/output/content4+style1.png)
 ![](/output/content6+style7.png)
+
+## To run:
+
+from neural_style import *
+
+content_img, style_img, input_img=image_loader('path_to_content_image','path_to_style_image')
+
+nst=Neural_Style()
+
+output = nst.run_style_transfer(cnn, cnn_normalization_mean, cnn_normalization_std,content_img, style_img, input_img)
+
+imshow(output, title='Output Image')  
