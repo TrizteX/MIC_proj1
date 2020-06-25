@@ -71,12 +71,6 @@ class Neural_Style:
         self.cnn_normalization_mean = torch.tensor([0.485, 0.456, 0.406]).to(self.device)
         self.cnn_normalization_std = torch.tensor([0.229, 0.224, 0.225]).to(self.device)
 
-        print("self.content_layers_default", self.content_layers_default)
-        print("elf.style_layers_default", self.style_layers_default)
-        print("self.num_steps", self.num_steps)
-        print("self.style_weight", self.style_weight)
-        print("self.content_weight", self.content_weight)
-
 
     def imshow(self, tensor, title=None):
         unloader = transforms.ToPILImage()
