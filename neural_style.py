@@ -101,27 +101,16 @@ class Neural_Style:
 
         l=max(w,h)
         s=min(w,h)
-        
-        styimg=styimg.resize((s,l))
-        cntimg=cntimg.resize((s,l))
 
-        print("l", l)
-        print("s", s)
         if l>self.imsize:
             
             s=int(s/l*self.imsize)
             l=self.imsize
-            print("s", s)
-            print("l", l)
-
-        print(ratio)
         
-        if ratio==(s/l): 
-            print("wut")
+        if ratio==(s/l):
             styimg=styimg.resize((s,l))
             cntimg=cntimg.resize((s,l))
         elif ratio==(l/s):
-            print("kenk")
             styimg=styimg.resize((l,s))
             cntimg=cntimg.resize((l,s))
          
