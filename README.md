@@ -15,7 +15,7 @@ Output Images:
 
 ## To run:
 
-from neural_style import *
+from neural_style import Neural_Style
 
 content_img, style_img = ('path_to_content_image','path_to_style_image')
 
@@ -25,5 +25,4 @@ output = nst.run_style_transfer(style_img, content_img)
 
 nst.imshow(output)
 
-=======
 
