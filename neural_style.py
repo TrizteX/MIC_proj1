@@ -82,10 +82,10 @@ class Neural_Style:
         if title is not None:
             plt.title(title)
         plt.pause(0.001)
+        #provide the path for saving the output image
+        image.save("output.png")
 
-        image.save("ok.png")
-
-    def image_loader(self, cnt,sty):
+    def image_loader(self, cnt, sty):
         styimg = Image.open(sty)
         cntimg= Image.open(cnt)
         
@@ -109,8 +109,7 @@ class Neural_Style:
             cntimg=cntimg.resize((l,s))
          
         loader = transforms.Compose([transforms.ToTensor()])
-        print("cntimg shape", cntimg.size)
-        print("styimg shape", styimg.size)
+        
         content_image = loader(cntimg).unsqueeze(0)
         style_image = loader(styimg).unsqueeze(0)
         input_img = torch.randn(content_image.data.size(), device=self.device)
@@ -171,10 +170,6 @@ class Neural_Style:
 
         return model, style_losses, content_losses
 
-    def get_input_optimizer(self,input_img):
-        optimizer = optim.LBFGS([input_img.requires_grad_()])
-        return optimizer
-
     def run_style_transfer(self, style_img, content_img):
 
         num_steps = self.num_steps
@@ -187,7 +182,8 @@ class Neural_Style:
         print('Building the style transfer model..')
         model, style_losses, content_losses = self.get_style_model_and_losses(self.cnn,
               self.cnn_normalization_mean, self.cnn_normalization_std, style_img, content_img)
-        optimizer = self.get_input_optimizer(input_img)
+        
+        optimizer = optim.LBFGS([input_img.requires_grad_()])
 
         print('Optimizing..')
         run = [0]
@@ -223,7 +219,7 @@ class Neural_Style:
 
             optimizer.step(closure)
 
-          # a last correction...
+          
         input_img.data.clamp_(0, 1)
         
         return input_img
