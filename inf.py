@@ -1,4 +1,4 @@
-from neural_style import *
+from neural_style import Neural_Style
 
 content_img, style_img = ('images/content1.jpg','images/style1.jpg')
 
