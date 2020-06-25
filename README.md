@@ -17,12 +17,13 @@ Output Images:
 
 from neural_style import *
 
-content_img, style_img, input_img=image_loader('path_to_content_image','path_to_style_image')
+content_img, style_img = ('path_to_content_image','path_to_style_image')
 
-nst=Neural_Style()
+nst=Neural_Style(num_steps=300, use_gpu=False)
 
-output = nst.run_style_transfer(cnn, cnn_normalization_mean, cnn_normalization_std,content_img, style_img, input_img)
+output = nst.run_style_transfer(style_img, content_img)
 
-imshow(output, title='Output Image')  
+nst.imshow(output)
+
 =======
 
