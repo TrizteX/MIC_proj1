@@ -1,3 +1,4 @@
+
 # MIC Project 1: Contribution to PyVision
 ## Neural Style Transfer: An implementation of the paper "A Neural Algorithm of Artistic Style".
 
@@ -23,3 +24,5 @@ nst=Neural_Style()
 output = nst.run_style_transfer(cnn, cnn_normalization_mean, cnn_normalization_std,content_img, style_img, input_img)
 
 imshow(output, title='Output Image')  
+=======
+
